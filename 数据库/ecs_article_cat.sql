@@ -16,10 +16,10 @@ Date: 2016-09-19 23:26:41
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for ecs_article_cat
+-- Table structure for ecs_article_video_cat
 -- ----------------------------
-DROP TABLE IF EXISTS `ecs_article_cat`;
-CREATE TABLE `ecs_article_cat` (
+DROP TABLE IF EXISTS `ecs_article_video_cat`;
+CREATE TABLE `ecs_article_video_cat` (
   `cat_id` smallint(5) NOT NULL AUTO_INCREMENT,
   `cat_name` varchar(255) NOT NULL DEFAULT '',
   `cat_type` tinyint(1) unsigned NOT NULL DEFAULT '1',
@@ -32,4 +32,4 @@ CREATE TABLE `ecs_article_cat` (
   KEY `cat_type` (`cat_type`),
   KEY `sort_order` (`sort_order`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
