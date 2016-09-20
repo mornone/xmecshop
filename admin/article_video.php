@@ -35,7 +35,7 @@ if ($_REQUEST['act'] == 'list')
     $filter = array();
     $smarty->assign('cat_select',  article_cat_list(0));
     $smarty->assign('ur_here',      $_LANG['03_article_list']);
-    $smarty->assign('action_link',  array('text' => $_LANG['article_add'], 'href' => 'article.php?act=add'));
+    $smarty->assign('action_link',  array('text' => $_LANG['article_add'], 'href' => 'article_video.php?act=add'));
     $smarty->assign('full_page',    1);
     $smarty->assign('filter',       $filter);
 
@@ -215,7 +215,7 @@ if ($_REQUEST['act'] == 'edit')
     $smarty->assign('goods_list', $goods_list);
 
     $smarty->assign('article',     $article);
-    $smarty->assign('cat_select',  article_cat_list(0, $article['cat_id']));
+    $smarty->assign('cat_select',  article_video_cat_list(0, $article['cat_id']));
     $smarty->assign('ur_here',     $_LANG['article_edit']);
     $smarty->assign('action_link', array('text' => $_LANG['03_article_list'], 'href' => 'article.php?act=list&' . list_link_postfix()));
     $smarty->assign('form_action', 'update');
@@ -647,8 +647,8 @@ function get_articleslist()
         }
 
         /* 文章总数 */
-        $sql = 'SELECT COUNT(*) FROM ' .$GLOBALS['ecs']->table('article'). ' AS a '.
-               'LEFT JOIN ' .$GLOBALS['ecs']->table('article_cat'). ' AS ac ON ac.cat_id = a.cat_id '.
+        $sql = 'SELECT COUNT(*) FROM ' .$GLOBALS['ecs']->table('article_video'). ' AS a '.
+               'LEFT JOIN ' .$GLOBALS['ecs']->table('article_video_cat'). ' AS ac ON ac.cat_id = a.cat_id '.
                'WHERE 1 ' .$where;
         $filter['record_count'] = $GLOBALS['db']->getOne($sql);
 
@@ -656,8 +656,8 @@ function get_articleslist()
 
         /* 获取文章数据 */
         $sql = 'SELECT a.* , ac.cat_name '.
-               'FROM ' .$GLOBALS['ecs']->table('article'). ' AS a '.
-               'LEFT JOIN ' .$GLOBALS['ecs']->table('article_cat'). ' AS ac ON ac.cat_id = a.cat_id '.
+               'FROM ' .$GLOBALS['ecs']->table('article_video'). ' AS a '.
+               'LEFT JOIN ' .$GLOBALS['ecs']->table('article_video_cat'). ' AS ac ON ac.cat_id = a.cat_id '.
                'WHERE 1 ' .$where. ' ORDER by '.$filter['sort_by'].' '.$filter['sort_order'];
 
         $filter['keyword'] = stripslashes($filter['keyword']);
