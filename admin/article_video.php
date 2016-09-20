@@ -33,7 +33,7 @@ if ($_REQUEST['act'] == 'list')
 {
     /* 取得过滤条件 */
     $filter = array();
-    $smarty->assign('cat_select',  article_cat_list(0));
+    $smarty->assign('cat_select',  article_video_cat_list(0));
     $smarty->assign('ur_here',      $_LANG['03_article_list']);
     $smarty->assign('action_link',  array('text' => $_LANG['article_add'], 'href' => 'article_video.php?act=add'));
     $smarty->assign('full_page',    1);
@@ -102,7 +102,7 @@ if ($_REQUEST['act'] == 'add')
         $smarty->assign('cur_id',  $_GET['id']);
     }
     $smarty->assign('article',     $article);
-    $smarty->assign('cat_select',  article_cat_list(0));
+    $smarty->assign('cat_select',  article_video_cat_list(0));
     $smarty->assign('ur_here',     $_LANG['article_add']);
     $smarty->assign('action_link', array('text' => $_LANG['03_article_list'], 'href' => 'article.php?act=list'));
     $smarty->assign('form_action', 'insert');
