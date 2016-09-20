@@ -34,8 +34,8 @@ if ($_REQUEST['act'] == 'list')
     {
         $articlecat[$key]['type_name'] = $_LANG['type_name'][$cat['cat_type']];
     }
-    $smarty->assign('ur_here',     $_LANG['02_articlecat_list']);
-    $smarty->assign('action_link', array('text' => $_LANG['articlecat_add'], 'href' => 'articlecat.php?act=add'));
+    $smarty->assign('ur_here',     $_LANG['02_articlecat_video_list']);
+    $smarty->assign('action_link', array('text' => $_LANG['articlecat_video_add'], 'href' => 'articlecat_video.php?act=add'));
     $smarty->assign('full_page',   1);
     $smarty->assign('articlecat',        $articlecat);
 

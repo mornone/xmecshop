@@ -235,10 +235,10 @@ $_LANG['shop_help'] = '网店帮助';
 $_LANG['vote_list'] = '在线调查';
 
 /* 视频管理 */
-$_LANG['02_videocat_list'] = '文章分类';
-$_LANG['videocat_add'] = '添加文章分类';
-$_LANG['03_video_list'] = '文章列表';
-$_LANG['video_add'] = '添加新文章';
+$_LANG['02_articlecat_video_list'] = '视频分类';
+$_LANG['articlecat_video_add'] = '添加视频分类';
+$_LANG['03_article_video_list'] = '视频列表';
+$_LANG['article_video_add'] = '添加新视频';
 
 
 /* 会员管理 */
