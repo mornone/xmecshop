@@ -346,7 +346,6 @@ elseif ($_REQUEST['act'] == 'remove')
     
     /* 非空的分类不允许删除 */
     $sql = "SELECT COUNT(*) FROM ".$ecs->table('article_video')." WHERE cat_id = '$id'";
-    print_r($_LANG['not_emptycat']);exit;
     if ($db->getOne($sql) > 0)
     {
         make_json_error(sprintf($_LANG['not_emptycat']));
