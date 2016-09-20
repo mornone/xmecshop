@@ -2,32 +2,6 @@
 $data = array (
   0 => 
   array (
-    'cat_id' => '13',
-    'cat_name' => '小米资讯',
-    'cat_type' => '1',
-    'keywords' => '',
-    'cat_desc' => '',
-    'sort_order' => '50',
-    'show_in_nav' => '0',
-    'parent_id' => '0',
-    'has_children' => '0',
-    'aricle_num' => '5',
-  ),
-  1 => 
-  array (
-    'cat_id' => '4',
-    'cat_name' => '3G资讯',
-    'cat_type' => '1',
-    'keywords' => '',
-    'cat_desc' => '',
-    'sort_order' => '50',
-    'show_in_nav' => '0',
-    'parent_id' => '0',
-    'has_children' => '0',
-    'aricle_num' => '4',
-  ),
-  2 => 
-  array (
     'cat_id' => '11',
     'cat_name' => '促销活动',
     'cat_type' => '1',
@@ -39,7 +13,7 @@ $data = array (
     'has_children' => '0',
     'aricle_num' => '6',
   ),
-  3 => 
+  1 => 
   array (
     'cat_id' => '1',
     'cat_name' => '系统分类',
@@ -52,7 +26,7 @@ $data = array (
     'has_children' => '2',
     'aricle_num' => '0',
   ),
-  4 => 
+  2 => 
   array (
     'cat_id' => '12',
     'cat_name' => '站内快讯',
@@ -64,6 +38,32 @@ $data = array (
     'parent_id' => '0',
     'has_children' => '0',
     'aricle_num' => '12',
+  ),
+  3 => 
+  array (
+    'cat_id' => '13',
+    'cat_name' => '小米资讯',
+    'cat_type' => '1',
+    'keywords' => '',
+    'cat_desc' => '',
+    'sort_order' => '50',
+    'show_in_nav' => '0',
+    'parent_id' => '0',
+    'has_children' => '0',
+    'aricle_num' => '5',
+  ),
+  4 => 
+  array (
+    'cat_id' => '4',
+    'cat_name' => '3G资讯',
+    'cat_type' => '1',
+    'keywords' => '',
+    'cat_desc' => '',
+    'sort_order' => '50',
+    'show_in_nav' => '0',
+    'parent_id' => '0',
+    'has_children' => '0',
+    'aricle_num' => '4',
   ),
   5 => 
   array (

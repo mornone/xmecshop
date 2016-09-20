@@ -17,6 +17,7 @@ define('IN_ECS', true);
 
 require(dirname(__FILE__) . '/includes/init.php');
 $exc = new exchange($ecs->table("article_video_cat"), $db, 'cat_id', 'cat_name');
+//print_r($exc);exit;
 /* act操作项的初始化 */
 $_REQUEST['act'] = trim($_REQUEST['act']);
 if (empty($_REQUEST['act']))
@@ -29,7 +30,7 @@ if (empty($_REQUEST['act']))
 /*------------------------------------------------------ */
 if ($_REQUEST['act'] == 'list')
 {
-    $articlecat = article_cat_list(0, 0, false);
+    $articlecat = article_video_cat_list(0, 0, false);
     foreach ($articlecat as $key => $cat)
     {
         $articlecat[$key]['type_name'] = $_LANG['type_name'][$cat['cat_type']];
@@ -48,7 +49,7 @@ if ($_REQUEST['act'] == 'list')
 /*------------------------------------------------------ */
 elseif ($_REQUEST['act'] == 'query')
 {
-    $articlecat = article_cat_list(0, 0, false);
+    $articlecat = article_video_cat_list(0, 0, false);
     foreach ($articlecat as $key => $cat)
     {
         $articlecat[$key]['type_name'] = $_LANG['type_name'][$cat['cat_type']];
@@ -64,9 +65,9 @@ elseif ($_REQUEST['act'] == 'query')
 elseif ($_REQUEST['act'] == 'add')
 {
     /* 权限判断 */
-    admin_priv('article_cat');
+    admin_priv('article_video_cat');
 
-    $smarty->assign('cat_select',  article_cat_list(0));
+    $smarty->assign('cat_select',  article_video_cat_list(0));
     $smarty->assign('ur_here',     $_LANG['articlecat_add']);
     $smarty->assign('action_link', array('text' => $_LANG['02_articlecat_list'], 'href' => 'articlecat.php?act=list'));
     $smarty->assign('form_action', 'insert');
@@ -77,7 +78,7 @@ elseif ($_REQUEST['act'] == 'add')
 elseif ($_REQUEST['act'] == 'insert')
 {
     /* 权限判断 */
-    admin_priv('article_cat');
+    admin_priv('article_video_cat');
 
     /*检查分类名是否重复*/
     $is_only = $exc->is_only('cat_name', $_POST['cat_name']);
@@ -90,7 +91,7 @@ elseif ($_REQUEST['act'] == 'insert')
     $cat_type = 1;
     if ($_POST['parent_id'] > 0)
     {
-        $sql = "SELECT cat_type FROM " . $ecs->table('article_cat') . " WHERE cat_id = '$_POST[parent_id]'";
+        $sql = "SELECT cat_type FROM " . $ecs->table('article_video_cat') . " WHERE cat_id = '$_POST[parent_id]'";
         $p_cat_type = $db->getOne($sql);
         if ($p_cat_type == 2 || $p_cat_type == 3 || $p_cat_type == 5)
         {
@@ -103,7 +104,7 @@ elseif ($_REQUEST['act'] == 'insert')
     }
 
 
-    $sql = "INSERT INTO ".$ecs->table('article_cat')."(cat_name, cat_type, cat_desc,keywords, parent_id, sort_order, show_in_nav)
+    $sql = "INSERT INTO ".$ecs->table('article_video_cat')."(cat_name, cat_type, cat_desc,keywords, parent_id, sort_order, show_in_nav)
            VALUES ('$_POST[cat_name]', '$cat_type',  '$_POST[cat_desc]','$_POST[keywords]', '$_POST[parent_id]', '$_POST[sort_order]', '$_POST[show_in_nav]')";
     $db->query($sql);
 
@@ -133,17 +134,17 @@ elseif ($_REQUEST['act'] == 'insert')
 elseif ($_REQUEST['act'] == 'edit')
 {
     /* 权限判断 */
-    admin_priv('article_cat');
+    admin_priv('article_video_cat');
 
     $sql = "SELECT cat_id, cat_name, cat_type, cat_desc, show_in_nav, keywords, parent_id,sort_order FROM ".
-           $ecs->table('article_cat'). " WHERE cat_id='$_REQUEST[id]'";
+           $ecs->table('article_video_cat'). " WHERE cat_id='$_REQUEST[id]'";
     $cat = $db->GetRow($sql);
 
     if ($cat['cat_type'] == 2 || $cat['cat_type'] == 3 || $cat['cat_type'] ==4)
     {
         $smarty->assign('disabled', 1);
     }
-    $options    =   article_cat_list(0, $cat['parent_id'], false);
+    $options    =   article_video_cat_list(0, $cat['parent_id'], false);
     $select     =   '';
     $selected   =   $cat['parent_id'];
     foreach ($options as $var)
@@ -175,7 +176,7 @@ elseif ($_REQUEST['act'] == 'edit')
 elseif ($_REQUEST['act'] == 'update')
 {
     /* 权限判断 */
-    admin_priv('article_cat');
+    admin_priv('article_video_cat');
 
     /*检查重名*/
     if ($_POST['cat_name'] != $_POST['old_catname'])
@@ -193,7 +194,7 @@ elseif ($_REQUEST['act'] == 'update')
         $_POST['parent_id'] = 0;
     }
 
-    $row = $db->getRow("SELECT cat_type, parent_id FROM " . $ecs->table('article_cat') . " WHERE cat_id='$_POST[id]'");
+    $row = $db->getRow("SELECT cat_type, parent_id FROM " . $ecs->table('article_video_cat') . " WHERE cat_id='$_POST[id]'");
     $cat_type = $row['cat_type'];
     if ($cat_type == 3 || $cat_type ==4)
     {
@@ -201,7 +202,7 @@ elseif ($_REQUEST['act'] == 'update')
     }
 
     /* 检查设定的分类的父分类是否合法 */
-    $child_cat = article_cat_list($_POST['id'], 0, false);
+    $child_cat = article_video_cat_list($_POST['id'], 0, false);
     if (!empty($child_cat))
     {
         foreach ($child_cat as $child_data)
@@ -218,7 +219,7 @@ elseif ($_REQUEST['act'] == 'update')
     {
         if ($_POST['parent_id'] > 0)
         {
-            $sql = "SELECT cat_type FROM " . $ecs->table('article_cat') . " WHERE cat_id = '$_POST[parent_id]'";
+            $sql = "SELECT cat_type FROM " . $ecs->table('article_video_cat') . " WHERE cat_id = '$_POST[parent_id]'";
             $p_cat_type = $db->getOne($sql);
             if ($p_cat_type == 4)
             {
@@ -235,7 +236,7 @@ elseif ($_REQUEST['act'] == 'update')
         }
     }
 
-    $dat = $db->getOne("SELECT cat_name, show_in_nav FROM ". $ecs->table('article_cat') . " WHERE cat_id = '" . $_POST['id'] . "'");
+    $dat = $db->getOne("SELECT cat_name, show_in_nav FROM ". $ecs->table('article_video_cat') . " WHERE cat_id = '" . $_POST['id'] . "'");
     if ($exc->edit("cat_name = '$_POST[cat_name]', cat_desc ='$_POST[cat_desc]', keywords='$_POST[keywords]',parent_id = '$_POST[parent_id]', cat_type='$cat_type', sort_order='$_POST[sort_order]', show_in_nav = '$_POST[show_in_nav]'",  $_POST['id']))
     {
         if($_POST['cat_name'] != $dat['cat_name'])
@@ -293,7 +294,7 @@ elseif ($_REQUEST['act'] == 'update')
 /*------------------------------------------------------ */
 elseif ($_REQUEST['act'] == 'edit_sort_order')
 {
-    check_authz_json('article_cat');
+    check_authz_json('article_video_cat');
 
     $id    = intval($_POST['id']);
     $order = json_str_iconv(trim($_POST['val']));
@@ -322,27 +323,30 @@ elseif ($_REQUEST['act'] == 'edit_sort_order')
 /*------------------------------------------------------ */
 elseif ($_REQUEST['act'] == 'remove')
 {
-    check_authz_json('article_cat');
+    check_authz_json('article_video_cat');
 
     $id = intval($_GET['id']);
 
-    $sql = "SELECT cat_type FROM " . $ecs->table('article_cat') . " WHERE cat_id = '$id'";
+    $sql = "SELECT cat_type FROM " . $ecs->table('article_video_cat') . " WHERE cat_id = '$id'";
     $cat_type = $db->getOne($sql);
+    
     if ($cat_type == 2 || $cat_type == 3 || $cat_type ==4)
     {
         /* 系统保留分类，不能删除 */
         make_json_error($_LANG['not_allow_remove']);
     }
 
-    $sql = "SELECT COUNT(*) FROM " . $ecs->table('article_cat') . " WHERE parent_id = '$id'";
+    $sql = "SELECT COUNT(*) FROM " . $ecs->table('article_video_cat') . " WHERE parent_id = '$id'";
+    
     if ($db->getOne($sql) > 0)
     {
         /* 还有子分类，不能删除 */
         make_json_error($_LANG['is_fullcat']);
     }
-
+    
     /* 非空的分类不允许删除 */
-    $sql = "SELECT COUNT(*) FROM ".$ecs->table('article')." WHERE cat_id = '$id'";
+    $sql = "SELECT COUNT(*) FROM ".$ecs->table('article_video')." WHERE cat_id = '$id'";
+    print_r($_LANG['not_emptycat']);exit;
     if ($db->getOne($sql) > 0)
     {
         make_json_error(sprintf($_LANG['not_emptycat']));
@@ -355,7 +359,7 @@ elseif ($_REQUEST['act'] == 'remove')
         admin_log($cat_name, 'remove', 'category');
     }
 
-    $url = 'articlecat.php?act=query&' . str_replace('act=remove', '', $_SERVER['QUERY_STRING']);
+    $url = 'articlecat_video.php?act=query&' . str_replace('act=remove', '', $_SERVER['QUERY_STRING']);
 
     ecs_header("Location: $url\n");
     exit;
@@ -382,8 +386,8 @@ if ($_REQUEST['act'] == 'toggle_show_in_nav')
                 //不存在
                 $vieworder = $db->getOne("SELECT max(vieworder) FROM ". $ecs->table('nav') . " WHERE type = 'middle'");
                 $vieworder += 2;
-                $catname = $db->getOne("SELECT cat_name FROM ". $ecs->table('article_cat') . " WHERE cat_id = '$id'");
-                $uri = build_uri('article_cat', array('acid'=> $id), $_POST['cat_name']);
+                $catname = $db->getOne("SELECT cat_name FROM ". $ecs->table('article_video_cat') . " WHERE cat_id = '$id'");
+                $uri = build_uri('article_video_cat', array('acid'=> $id), $_POST['cat_name']);
 
                 $sql = "INSERT INTO " . $ecs->table('nav') . " (name,ctype,cid,ifshow,vieworder,opennew,url,type) ".
                     "VALUES('" . $catname . "', 'a', '$id','1','$vieworder','0', '" . $uri . "','middle')";
@@ -423,6 +427,6 @@ function cat_update($cat_id, $args)
         return false;
     }
 
-    return $GLOBALS['db']->autoExecute($GLOBALS['ecs']->table('article_cat'), $args, 'update', "cat_id='$cat_id'");
+    return $GLOBALS['db']->autoExecute($GLOBALS['ecs']->table('article_video_cat'), $args, 'update', "cat_id='$cat_id'");
 }
 ?>
